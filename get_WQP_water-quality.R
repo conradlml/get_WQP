@@ -18,7 +18,7 @@
 
 # Enter the eight digit HUC that you'd like to download data for. If you want to
 # look at multiple HUCs, separate them by a comma inside the parentheses. 
-huc <- c(17010305, 170010304)
+huc <- c(17010305, 17010301)
 
 # Enter the start date (mm-dd-yyyy) for your period of interest.
 start <- "01-01-2015"

@@ -2,7 +2,7 @@
 ################################################################################
 # Direct water quality data download from the Water Quality Portal. 
 # 
-# Lily Conrad, IDEQ State Office
+# Lily Conrad
 # last update: 1/3/2025
 #
 # Data citation: 

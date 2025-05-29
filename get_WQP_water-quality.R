@@ -3,7 +3,7 @@
 # Direct water quality data download from the Water Quality Portal. 
 # 
 # Lily Conrad
-# last update: 1/3/2025
+# last update: 5/29/2025
 #
 # Data citation: 
 # Water Quality Portal. Washington (DC): National Water Quality Monitoring Council, 
@@ -61,27 +61,17 @@ library(dataRetrieval)
 rawdat <- readWQPdata(huc = huc,
                       startDate = start,
                       endDate = end,
-                      characteristicName = characteristicName)
-
-# Site query.
-sites <- whatWQPsites(huc = huc,
-                      startDate = start,
-                      endDate = end,
                       characteristicName = characteristicName,
-                      ActivityMedianName = "Water",
-                      ActivityMediaSubdivisionName = "Surface Water")
-
-# Add in site names.
-wq.dat <- merge(x = rawdat, y = sites, by = "MonitoringLocationIdentifier")
+                      service = "ResultWQX3") # set to beta version of WQP (3.0) to get all USGS data
 
 # Remove QC and non-surface water samples
-wq.dat <- wq.dat %>%
-  filter(ActivityMediaSubdivisionName == "Surface Water" & 
-           ActivityTypeCode == "Sample-Routine")
+wq.dat <- rawdat %>%
+  filter(Activity_MediaSubdivision == "Surface water",
+         grepl("Routine", Activity_TypeCode)) 
 
 # Save the data to excel. This will save the file in your downloads folder
 # Adjust the file path if you'd like it to save somewhere else.
-write.xlsx(wq.dat, paste0("C:/Users/", my_name,"/Downloads/",Sys.Date(),"WQP_download.xlsx"))
+write.xlsx(wq.dat, paste0("C:/Users/", my_name,"/Downloads/",Sys.Date(),"_WQP_download.xlsx"))
 
 
 ################################################################################
